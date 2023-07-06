@@ -10,11 +10,13 @@ const QuestionSchema = mongoose.Schema({
     userPosted:{type: String, required:"Question must have an author"},
     userId:{type:String},
     askedOn:{type:Date, default: Date.now},
+    questionComment:{type:[String], default:[]},
     answer:[{
         answerBody: String,
         userAnswered: String,
         userId: String,
-        answeredOn:{type:Date, default: Date.now}
+        answeredOn:{type:Date, default: Date.now},
+        answerComment:{type: [String], default:[]}
     }]
 })
 

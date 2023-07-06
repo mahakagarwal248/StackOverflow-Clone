@@ -75,3 +75,17 @@ export const voteQuestion = async (req,res) => {
         req.status(404).json({message:"Id not found"})
     }
 }
+
+export const postQuestionComment = async (req,res) => {
+    const {id: _id} = req.params;
+    const { questionComment } = req.body;
+    if(!mongoose.Types.ObjectId.isValid(_id)){
+        return res.status(404).send('question unavailable...')
+    }
+    try {
+        const updatedQuestionComment = await Questions.findByIdAndUpdate(_id, {$addToSet: {'questionComment': questionComment}});
+        res.status(200).json(updatedQuestionComment)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+}
